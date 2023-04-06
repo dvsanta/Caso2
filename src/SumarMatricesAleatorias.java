@@ -1,7 +1,8 @@
 import java.util.Random;
 public class SumarMatricesAleatorias {
 
-    public static int[][] sumarMatrices(int n, int m) {
+    public static int[][] sumarMatrices(int n, int m, int numPaginas) {
+        int [][] matrizPaginas = new int[numPaginas][10];
         int[][] matriz1 = new int[n][m];
         int[][] matriz2 = new int[n][m];
         int[][] matrizSuma = new int[n][m];

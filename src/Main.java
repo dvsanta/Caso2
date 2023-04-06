@@ -7,8 +7,9 @@ public class Main {
         int tamPagina = Configuraciones[3];
         int numPaginas = Configuraciones[4];
 
-        int[][] matrizResultante = SumarMatricesAleatorias.sumarMatrices(numFilas, numCols);
+        int[][] matrizResultante = SumarMatricesAleatorias.sumarMatrices(numFilas, numCols, numPaginas);
         leerMatriz(matrizResultante);
+        ExportarArchivo.Exportar(numFilas, numCols, tamPagina);
     }
 
 
