@@ -83,7 +83,7 @@ public class ManejoMemoria {
        writer.close();
     }*/
 
-    /** VERSION 2,0
+    //VERSION 2,0
     public void generarReferenciasPagina() throws IOException
     {
         Integer tamTotalMatriz = numFilas * numCols * tamEntero;
@@ -94,31 +94,24 @@ public class ManejoMemoria {
         Integer numFilasPorPagina = tamPagina /(numFilas * tamEntero) ;
         System.out.println("Numero de filas por pagina: " + numFilasPorPagina);
 
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < numTotalPaginasNecesariasPorMatriz2; i++)
         {
             for (int k = 0; k < numFilas; k++)
             {
-                if (numFilasPorPagina < k)
+                for (int j = 0; j < numCols; j++)
                 {
-                    continue;
-                }
-                else
-                {
-                    for (int j = 0; j < numCols; j++)
-                    {
-                        Integer paginaMatA = i;
-                        Integer paginaMatB = i + numTotalPaginasNecesariasPorMatriz;
-                        Integer paginaMatC = i + (int) (2.0f * numTotalPaginasNecesariasPorMatriz2);
+                    Integer paginaMatA = i;
+                    Integer paginaMatB = i + numTotalPaginasNecesariasPorMatriz;
+                    Integer paginaMatC = i + (int) (2.0f * numTotalPaginasNecesariasPorMatriz2);
 
-                        Integer offSetA = (k * numCols + j) * tamEntero % tamPagina;
-                        Integer offSetB = (k * numCols + j) * tamEntero % tamPagina;
-                        Integer offSetC = (k * numCols + j) * tamEntero % tamPagina;
+                    Integer offSetA = (k * numCols + j) * tamEntero % tamPagina;
+                    Integer offSetB = (k * numCols + j) * tamEntero % tamPagina;
+                    Integer offSetC = (k * numCols + j) * tamEntero % tamPagina;
 
-                        res2 += "[A-" + k + "-" + j + "]," + paginaMatA + "," + offSetA + "\n";
-                        res2 += "[B-" + k + "-" + j + "]," + paginaMatB + "," + offSetB + "\n";
-                        res2 += "[C-" + k + "-" + j + "]," + paginaMatC + "," + offSetC + "\n";
-                        numeroReferencias = numeroReferencias + 3;
-                    }
+                    res2 += "[A-" + k + "-" + j + "]," + paginaMatA + "," + offSetA + "\n";
+                    res2 += "[B-" + k + "-" + j + "]," + paginaMatB + "," + offSetB + "\n";
+                    res2 += "[C-" + k + "-" + j + "]," + paginaMatC + "," + offSetC + "\n";
+                    numeroReferencias = numeroReferencias + 3;
                 }
             }
         }
@@ -128,8 +121,7 @@ public class ManejoMemoria {
        writer.println(respuesta);
        writer.close();
     }
-    */
-
+    /** VERSION 3,0
     public void generarReferenciasPagina() throws IOException
     {
         Integer tamTotalMatriz = numFilas * numCols * tamEntero;
@@ -169,7 +161,7 @@ public class ManejoMemoria {
        writer.println(respuesta);
        writer.close();
     }
-
+*/
 public static void main(String[] args) throws IOException {
     ManejoMemoria mm = new ManejoMemoria();
     mm.leerArchivoConfiguracion("config.txt");

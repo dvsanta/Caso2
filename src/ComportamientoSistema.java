@@ -8,7 +8,7 @@ public class ComportamientoSistema {
         //Lectura de los parámetros desde el archivo de entrada
         List<Integer> references = new ArrayList<>();
         String archivo = "output.txt";
-        Integer num_pages = 13;
+        Integer num_pages = 2000;
         try {
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
@@ -63,11 +63,6 @@ public class ComportamientoSistema {
                 page_ages[oldest_page] = 0; //Actualiza la edad de la página
             }
             page_ages[reference]++;
-        }
-
-        
-        for (int i = 0; i < num_pages; i++) {
-            System.out.println(page_table[i]);
         }
         
         // Escritura de los resultados en el archivo de salida
