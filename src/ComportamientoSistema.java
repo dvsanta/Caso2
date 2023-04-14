@@ -42,23 +42,22 @@ public class ComportamientoSistema {
             e.printStackTrace();
         }
         
-        
-        
         // Simulación del comportamiento del sistema de paginación
-        int num_page_faults = 0;
-        int[] page_table = new int[num_pages];
-        Queue<Integer> page_queue = new LinkedList<>();
+        int num_page_faults = 0; //Compartido con enjececimiento
+        int[] page_table = new int[num_pages]; //Compartido con enjececimiento
+        Queue<Integer> page_queue = new LinkedList<>(); //Compartido con enjececimiento
         Arrays.fill(page_table, -1);
-        for (int reference : references) {
-            if (page_table[reference] == -1) {
+        for (int reference : references) { //Parte de Lector
+            if (page_table[reference] == -1) { //PArte del lector 
                 // Fallo de página //
                 num_page_faults++;
                 if (page_queue.size() >= num_pages) {
                     int oldest_page = page_queue.poll();
                     page_table[oldest_page] = -1;
-                }
-                page_queue.add(reference);
+                } 
+                page_queue.add(reference); //La edad de la pagina es la ultima referencia
                 page_table[reference] = 1; // Marca la página como presente en memoria
+                // Fallo de página //
             }
         }
         

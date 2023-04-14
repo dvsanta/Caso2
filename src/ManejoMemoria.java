@@ -10,10 +10,7 @@ public class ManejoMemoria {
     private int tamEntero; // Tamaño de un entero en bytes
     private int tamPagina; // Tamaño de las páginas en bytes
     private int numPaginas; // Número de páginas
-    private String respuesta;
     private String res1 = "";
-    private String res2 = "";
-    private Integer numeroReferencias = 0;
 
     public void leerArchivoConfiguracion(String rutaArchivo) {
         try {
@@ -166,10 +163,6 @@ public class ManejoMemoria {
 public void generarReferenciasPagina() throws IOException {
     Integer tamTotalMatriz = numFilas * numCols * tamEntero;
     Integer numTotalPaginasNecesariasPorMatriz = tamTotalMatriz / tamPagina;
-    System.out.println(tamTotalMatriz + "/" + tamPagina + "=" + numTotalPaginasNecesariasPorMatriz);
-    System.out.println("Numero de paginas necesarias por matriz: " + numTotalPaginasNecesariasPorMatriz);
-    Integer numFilasPorPagina = tamPagina / (numFilas * tamEntero);
-    System.out.println("Numero de filas por pagina: " + numFilasPorPagina);
 
     StringBuilder res2 = new StringBuilder();
     int numeroReferencias = 0;
