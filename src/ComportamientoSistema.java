@@ -8,7 +8,7 @@ public class ComportamientoSistema {
         //Lectura de los parámetros desde el archivo de entrada
         List<Integer> references = new ArrayList<>();
         String archivo = "output.txt";
-        Integer num_pages = 2000;
+        Integer num_pages = 20000;
         try {
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);

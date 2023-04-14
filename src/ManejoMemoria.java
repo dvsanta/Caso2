@@ -83,7 +83,7 @@ public class ManejoMemoria {
        writer.close();
     }*/
 
-    //VERSION 2,0
+    /**VERSION 2,0 - este es el que funciona
     public void generarReferenciasPagina() throws IOException
     {
         Integer tamTotalMatriz = numFilas * numCols * tamEntero;
@@ -120,7 +120,7 @@ public class ManejoMemoria {
        PrintWriter writer = new PrintWriter(new FileWriter("output.txt", true));
        writer.println(respuesta);
        writer.close();
-    }
+    }*/
     /** VERSION 3,0
     public void generarReferenciasPagina() throws IOException
     {
@@ -162,6 +162,38 @@ public class ManejoMemoria {
        writer.close();
     }
 */
+
+public void generarReferenciasPagina() throws IOException {
+    Integer tamTotalMatriz = numFilas * numCols * tamEntero;
+    Integer numTotalPaginasNecesariasPorMatriz = tamTotalMatriz / tamPagina;
+    System.out.println(tamTotalMatriz + "/" + tamPagina + "=" + numTotalPaginasNecesariasPorMatriz);
+    System.out.println("Numero de paginas necesarias por matriz: " + numTotalPaginasNecesariasPorMatriz);
+    Integer numFilasPorPagina = tamPagina / (numFilas * tamEntero);
+    System.out.println("Numero de filas por pagina: " + numFilasPorPagina);
+
+    StringBuilder res2 = new StringBuilder();
+    int numeroReferencias = 0;
+    for (int i = 0; i < numTotalPaginasNecesariasPorMatriz; i++) {
+        int paginaMatA = i;
+        int paginaMatB = paginaMatA + numTotalPaginasNecesariasPorMatriz;
+        int paginaMatC = paginaMatB + numTotalPaginasNecesariasPorMatriz;
+        for (int k = 0; k < numFilas; k++) {
+            for (int j = 0; j < numCols; j++) {
+                int offSet = (k * numCols + j) * tamEntero % tamPagina;
+                res2.append("[A-").append(k).append("-").append(j).append("],").append(paginaMatA).append(",").append(offSet).append("\n");
+                res2.append("[B-").append(k).append("-").append(j).append("],").append(paginaMatB).append(",").append(offSet).append("\n");
+                res2.append("[C-").append(k).append("-").append(j).append("],").append(paginaMatC).append(",").append(offSet).append("\n");
+                numeroReferencias += 3;
+            }
+        }
+    }
+    res1 += "NR=" + numeroReferencias + "\n";
+    String respuesta = res1 + res2;
+    PrintWriter writer = new PrintWriter(new FileWriter("output.txt", true));
+    writer.println(respuesta);
+    writer.close();
+}
+
 public static void main(String[] args) throws IOException {
     ManejoMemoria mm = new ManejoMemoria();
     mm.leerArchivoConfiguracion("config.txt");
