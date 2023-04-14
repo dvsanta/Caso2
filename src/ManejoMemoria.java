@@ -144,39 +144,31 @@ public class ManejoMemoria {
         Integer paginaMatC = 0;
             for (int k = 0; k < numFilas; k++)
             {
-                if (numFilasPorPagina < k)
+                for (int j = 0; j < numCols; j++)
                 {
-                    continue;
-                }
-                else
-                {
-                    for (int j = 0; j < numCols; j++)
+                    for (int i = 0; i < numTotalPaginasNecesariasPorMatriz2; i++)
                     {
-                        for (int i = 0; i < numTotalPaginasNecesariasPorMatriz2; i++)
-                        {
-                            paginaMatA = i;
-                            paginaMatB = i + numTotalPaginasNecesariasPorMatriz;
-                            paginaMatC = i + (int) (2.0f * numTotalPaginasNecesariasPorMatriz2);
-                        }
-
-                        Integer offSetA = (k * numCols + j) * tamEntero % tamPagina;
-                        Integer offSetB = (k * numCols + j) * tamEntero % tamPagina;
-                        Integer offSetC = (k * numCols + j) * tamEntero % tamPagina;
-
-                        res2 += "[A-" + k + "-" + j + "]," + paginaMatA + "," + offSetA + "\n";
-                        res2 += "[B-" + k + "-" + j + "]," + paginaMatB + "," + offSetB + "\n";
-                        res2 += "[C-" + k + "-" + j + "]," + paginaMatC + "," + offSetC + "\n";
-                        numeroReferencias = numeroReferencias + 3;
+                        paginaMatA = i;
+                        paginaMatB = i + numTotalPaginasNecesariasPorMatriz;
+                        paginaMatC = i + (int) (2.0f * numTotalPaginasNecesariasPorMatriz2);
                     }
+
+                    Integer offSetA = (k * numCols + j) * tamEntero % tamPagina;
+                    Integer offSetB = (k * numCols + j) * tamEntero % tamPagina;
+                    Integer offSetC = (k * numCols + j) * tamEntero % tamPagina;
+
+                    res2 += "[A-" + k + "-" + j + "]," + paginaMatA + "," + offSetA + "\n";
+                    res2 += "[B-" + k + "-" + j + "]," + paginaMatB + "," + offSetB + "\n";
+                    res2 += "[C-" + k + "-" + j + "]," + paginaMatC + "," + offSetC + "\n";
+                    numeroReferencias = numeroReferencias + 3;
                 }
-            }
+                }
        res1 += "NR=" + numeroReferencias + "\n";
        respuesta = res1 + res2; 
        PrintWriter writer = new PrintWriter(new FileWriter("output.txt", true));
        writer.println(respuesta);
        writer.close();
     }
-
 
 public static void main(String[] args) throws IOException {
     ManejoMemoria mm = new ManejoMemoria();

@@ -51,18 +51,23 @@ public class ComportamientoSistema {
         Arrays.fill(page_table, -1);
         for (int reference : references) {
             if (page_table[reference] == -1) {
-                // Fallo de página
+                // Fallo de página  //
                 num_page_faults++;
                 int oldest_page = 0;
                 for (int i = 1; i < num_pages; i++) {
                     if (page_ages[i] < page_ages[oldest_page]) {
                         oldest_page = i;
-                    }
+                    } // Fallo de página // 
                 }
                 page_table[oldest_page] = reference;
-                page_ages[oldest_page] = 0;
+                page_ages[oldest_page] = 0; //Actualiza la edad de la página
             }
             page_ages[reference]++;
+        }
+
+        
+        for (int i = 0; i < num_pages; i++) {
+            System.out.println(page_table[i]);
         }
         
         // Escritura de los resultados en el archivo de salida
