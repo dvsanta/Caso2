@@ -8,7 +8,7 @@ public class ComportamientoSistema {
         //Lectura de los parámetros desde el archivo de entrada
         List<Integer> references = new ArrayList<>();
         String archivo = "output.txt";
-        Integer num_pages = 2000;
+        Integer num_pages = 3;
         try {
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
@@ -47,22 +47,19 @@ public class ComportamientoSistema {
         // Simulación del comportamiento del sistema de paginación
         int num_page_faults = 0;
         int[] page_table = new int[num_pages];
-        int[] page_ages = new int[num_pages];
+        Queue<Integer> page_queue = new LinkedList<>();
         Arrays.fill(page_table, -1);
         for (int reference : references) {
             if (page_table[reference] == -1) {
-                // Fallo de página  //
+                // Fallo de página //
                 num_page_faults++;
-                int oldest_page = 0;
-                for (int i = 1; i < num_pages; i++) {
-                    if (page_ages[i] < page_ages[oldest_page]) {
-                        oldest_page = i;
-                    } // Fallo de página // 
+                if (page_queue.size() >= num_pages) {
+                    int oldest_page = page_queue.poll();
+                    page_table[oldest_page] = -1;
                 }
-                page_table[oldest_page] = reference;
-                page_ages[oldest_page] = 0; //Actualiza la edad de la página
+                page_queue.add(reference);
+                page_table[reference] = 1; // Marca la página como presente en memoria
             }
-            page_ages[reference]++;
         }
         
         // Escritura de los resultados en el archivo de salida
