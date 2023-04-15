@@ -29,6 +29,7 @@ public class ManejoMemoria {
             res1 += "TP=" + tamPagina + "\n";
             res1 += "NF=" + numFilas + "\n";
             res1 += "NC=" + numCols + "\n";
+        
         } catch (IOException e) {
             System.out.println("Error al leer el archivo de configuración");
             e.printStackTrace();
@@ -57,6 +58,7 @@ public class ManejoMemoria {
             }
         }
         res1 += "NR=" + numeroReferencias + "\n";
+        res1 += "MC=" + numPaginas + "\n";
         String respuesta = res1 + res2;
         PrintWriter writer = new PrintWriter(new FileWriter("output.txt", true));
         writer.println(respuesta);

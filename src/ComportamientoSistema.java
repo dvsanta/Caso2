@@ -10,7 +10,7 @@ public class ComportamientoSistema {
         int numCols = 0;
         List<Integer> references = new ArrayList<>();
         String archivo = "output.txt";
-        Integer num_pages = 4;
+        Integer num_pages = 0;
         int tamPagina = 0;
         try {
             FileReader fr = new FileReader(archivo);
@@ -31,6 +31,9 @@ public class ComportamientoSistema {
             linea = br.readLine();
             String[] lineaNumRef = linea.split("=");
             int numeroReferencias = Integer.parseInt(lineaNumRef[1]);
+            linea = br.readLine();
+            String[] lineaNumPag = linea.split("=");
+            num_pages = Integer.parseInt(lineaNumPag[1]);
             System.out.println(numeroReferencias);
             while ((linea = br.readLine()) != null) {
                 String[] referencia = linea.split(",");
