@@ -6,9 +6,11 @@ public class ComportamientoSistema {
     public static void main(String[] args) throws IOException {
 
         //Lectura de los parámetros desde el archivo de entrada
+        int numFilas = 0;
+        int numCols = 0;
         List<Integer> references = new ArrayList<>();
         String archivo = "output.txt";
-        Integer num_pages = 20000;
+        Integer num_pages = 4;
         try {
             FileReader fr = new FileReader(archivo);
             BufferedReader br = new BufferedReader(fr);
@@ -19,11 +21,11 @@ public class ComportamientoSistema {
             System.out.println(tamPagina);
             linea = br.readLine();
             String[] lineaNumFilas = linea.split("=");
-            int numFilas = Integer.parseInt(lineaNumFilas[1]);
+            numFilas = Integer.parseInt(lineaNumFilas[1]);
             System.out.println(numFilas);
             linea = br.readLine();
             String[] lineaNumCols = linea.split("=");
-            int numCols = Integer.parseInt(lineaNumCols[1]);
+            numCols = Integer.parseInt(lineaNumCols[1]);
             System.out.println(numCols);
             linea = br.readLine();
             String[] lineaNumRef = linea.split("=");
@@ -41,10 +43,9 @@ public class ComportamientoSistema {
             System.out.println("Error al leer el archivo " + archivo);
             e.printStackTrace();
         }
-        
         // Simulación del comportamiento del sistema de paginación
         int num_page_faults = 0; //Compartido con enjececimiento
-        int[] page_table = new int[num_pages]; //Compartido con enjececimiento
+        int[] page_table = new int[(numFilas * numCols * 3)/num_pages]; //Compartido con enjececimiento
         Queue<Integer> page_queue = new LinkedList<>(); //Compartido con enjececimiento
         Arrays.fill(page_table, -1);
         for (int reference : references) { //Parte de Lector
@@ -60,7 +61,7 @@ public class ComportamientoSistema {
                 // Fallo de página //
             }
         }
-        
+
         // Escritura de los resultados en el archivo de salida
         System.out.println("Número de fallos de página: " + num_page_faults);
     }

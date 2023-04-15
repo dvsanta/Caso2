@@ -34,158 +34,34 @@ public class ManejoMemoria {
             e.printStackTrace();
         }
     }
-    /** VERSION 1,0
-    public void generarReferenciasPagina() throws IOException
-    {
+
+    public void generarReferenciasPagina() throws IOException {
         Integer tamTotalMatriz = numFilas * numCols * tamEntero;
-        Integer numTotalPaginasNecesariasPorMatriz = (tamTotalMatriz) / tamPagina;
+        Integer numTotalPaginasNecesariasPorMatriz = tamTotalMatriz / tamPagina;
         float numTotalPaginasNecesariasPorMatriz2 = (float) (tamTotalMatriz) / (float) tamPagina;
-        System.out.println(tamTotalMatriz + "/" + tamPagina + "=" + numTotalPaginasNecesariasPorMatriz2);
-        System.out.println("Numero de paginas necesarias por matriz: " + numTotalPaginasNecesariasPorMatriz2);
-        Integer numFilasPorPagina = tamPagina /(numFilas * tamEntero) ;
-        System.out.println("Numero de filas por pagina: " + numFilasPorPagina);
 
-        for (int i = 0; i < numTotalPaginasNecesariasPorMatriz2; i++)
-        {
-            for (int k = 0; k < numFilas; k++)
-            {
-                if (numFilasPorPagina < k)
-                {
-                    continue;
-                }
-                else
-                {
-                    for (int j = 0; j < numCols; j++)
-                    {
-                        Integer paginaMatA = i;
-                        Integer paginaMatB = i + numTotalPaginasNecesariasPorMatriz;
-                        Integer paginaMatC = i + 2 * numTotalPaginasNecesariasPorMatriz;
-
-                        Integer offSetA = (k * numCols + j) * tamEntero % tamPagina;
-                        Integer offSetB = (k * numCols + j) * tamEntero % tamPagina;
-                        Integer offSetC = (k * numCols + j) * tamEntero % tamPagina;
-
-                        res2 += "[A-" + k + "-" + j + "]," + paginaMatA + "," + offSetA + "\n";
-                        res2 += "[B-" + k + "-" + j + "]," + paginaMatB + "," + offSetB + "\n";
-                        res2 += "[C-" + k + "-" + j + "]," + paginaMatC + "," + offSetC + "\n";
-                        numeroReferencias = numeroReferencias + 3;
-                    }
+        StringBuilder res2 = new StringBuilder();
+        int numeroReferencias = 0;
+        for (int i = 0; i < numTotalPaginasNecesariasPorMatriz2; i++) {
+            int paginaMatA = i;
+            int paginaMatB = paginaMatA + numTotalPaginasNecesariasPorMatriz;
+            int paginaMatC = i + + (int) (2.0f * numTotalPaginasNecesariasPorMatriz2);
+            for (int k = 0; k < numFilas; k++) {
+                for (int j = 0; j < numCols; j++) {
+                    int offSet = (k * numCols + j) * tamEntero % tamPagina;
+                    res2.append("[A-").append(k).append("-").append(j).append("],").append(paginaMatA).append(",").append(offSet).append("\n");
+                    res2.append("[B-").append(k).append("-").append(j).append("],").append(paginaMatB).append(",").append(offSet).append("\n");
+                    res2.append("[C-").append(k).append("-").append(j).append("],").append(paginaMatC).append(",").append(offSet).append("\n");
+                    numeroReferencias += 3;
                 }
             }
         }
-       res1 += "NR=" + numeroReferencias + "\n";
-       respuesta = res1 + res2; 
-       PrintWriter writer = new PrintWriter(new FileWriter("output.txt", true));
-       writer.println(respuesta);
-       writer.close();
-    }*/
-
-    /**VERSION 2,0 - este es el que funciona
-    public void generarReferenciasPagina() throws IOException
-    {
-        Integer tamTotalMatriz = numFilas * numCols * tamEntero;
-        Integer numTotalPaginasNecesariasPorMatriz = (tamTotalMatriz) / tamPagina;
-        float numTotalPaginasNecesariasPorMatriz2 = (float) (tamTotalMatriz) / (float) tamPagina;
-        System.out.println(tamTotalMatriz + "/" + tamPagina + "=" + numTotalPaginasNecesariasPorMatriz2);
-        System.out.println("Numero de paginas necesarias por matriz: " + numTotalPaginasNecesariasPorMatriz2);
-        Integer numFilasPorPagina = tamPagina /(numFilas * tamEntero) ;
-        System.out.println("Numero de filas por pagina: " + numFilasPorPagina);
-
-        for (int i = 0; i < numTotalPaginasNecesariasPorMatriz2; i++)
-        {
-            for (int k = 0; k < numFilas; k++)
-            {
-                for (int j = 0; j < numCols; j++)
-                {
-                    Integer paginaMatA = i;
-                    Integer paginaMatB = i + numTotalPaginasNecesariasPorMatriz;
-                    Integer paginaMatC = i + (int) (2.0f * numTotalPaginasNecesariasPorMatriz2);
-
-                    Integer offSetA = (k * numCols + j) * tamEntero % tamPagina;
-                    Integer offSetB = (k * numCols + j) * tamEntero % tamPagina;
-                    Integer offSetC = (k * numCols + j) * tamEntero % tamPagina;
-
-                    res2 += "[A-" + k + "-" + j + "]," + paginaMatA + "," + offSetA + "\n";
-                    res2 += "[B-" + k + "-" + j + "]," + paginaMatB + "," + offSetB + "\n";
-                    res2 += "[C-" + k + "-" + j + "]," + paginaMatC + "," + offSetC + "\n";
-                    numeroReferencias = numeroReferencias + 3;
-                }
-            }
-        }
-       res1 += "NR=" + numeroReferencias + "\n";
-       respuesta = res1 + res2; 
-       PrintWriter writer = new PrintWriter(new FileWriter("output.txt", true));
-       writer.println(respuesta);
-       writer.close();
-    }*/
-    /** VERSION 3,0
-    public void generarReferenciasPagina() throws IOException
-    {
-        Integer tamTotalMatriz = numFilas * numCols * tamEntero;
-        Integer numTotalPaginasNecesariasPorMatriz = (tamTotalMatriz) / tamPagina;
-        float numTotalPaginasNecesariasPorMatriz2 = (float) (tamTotalMatriz) / (float) tamPagina;
-        System.out.println(tamTotalMatriz + "/" + tamPagina + "=" + numTotalPaginasNecesariasPorMatriz2);
-        System.out.println("Numero de paginas necesarias por matriz: " + numTotalPaginasNecesariasPorMatriz2);
-        Integer numFilasPorPagina = tamPagina /(numFilas * tamEntero) ;
-        System.out.println("Numero de filas por pagina: " + numFilasPorPagina);
-        Integer paginaMatA = 0;
-        Integer paginaMatB = 0;
-        Integer paginaMatC = 0;
-            for (int k = 0; k < numFilas; k++)
-            {
-                for (int j = 0; j < numCols; j++)
-                {
-                    for (int i = 0; i < numTotalPaginasNecesariasPorMatriz2; i++)
-                    {
-                        paginaMatA = i;
-                        paginaMatB = i + numTotalPaginasNecesariasPorMatriz;
-                        paginaMatC = i + (int) (2.0f * numTotalPaginasNecesariasPorMatriz2);
-                    }
-
-                    Integer offSetA = (k * numCols + j) * tamEntero % tamPagina;
-                    Integer offSetB = (k * numCols + j) * tamEntero % tamPagina;
-                    Integer offSetC = (k * numCols + j) * tamEntero % tamPagina;
-
-                    res2 += "[A-" + k + "-" + j + "]," + paginaMatA + "," + offSetA + "\n";
-                    res2 += "[B-" + k + "-" + j + "]," + paginaMatB + "," + offSetB + "\n";
-                    res2 += "[C-" + k + "-" + j + "]," + paginaMatC + "," + offSetC + "\n";
-                    numeroReferencias = numeroReferencias + 3;
-                }
-                }
-       res1 += "NR=" + numeroReferencias + "\n";
-       respuesta = res1 + res2; 
-       PrintWriter writer = new PrintWriter(new FileWriter("output.txt", true));
-       writer.println(respuesta);
-       writer.close();
+        res1 += "NR=" + numeroReferencias + "\n";
+        String respuesta = res1 + res2;
+        PrintWriter writer = new PrintWriter(new FileWriter("output.txt", true));
+        writer.println(respuesta);
+        writer.close();
     }
-*/
-
-public void generarReferenciasPagina() throws IOException {
-    Integer tamTotalMatriz = numFilas * numCols * tamEntero;
-    Integer numTotalPaginasNecesariasPorMatriz = tamTotalMatriz / tamPagina;
-
-    StringBuilder res2 = new StringBuilder();
-    int numeroReferencias = 0;
-    for (int i = 0; i < numTotalPaginasNecesariasPorMatriz; i++) {
-        int paginaMatA = i;
-        int paginaMatB = paginaMatA + numTotalPaginasNecesariasPorMatriz;
-        int paginaMatC = paginaMatB + numTotalPaginasNecesariasPorMatriz;
-        for (int k = 0; k < numFilas; k++) {
-            for (int j = 0; j < numCols; j++) {
-                int offSet = (k * numCols + j) * tamEntero % tamPagina;
-                res2.append("[A-").append(k).append("-").append(j).append("],").append(paginaMatA).append(",").append(offSet).append("\n");
-                res2.append("[B-").append(k).append("-").append(j).append("],").append(paginaMatB).append(",").append(offSet).append("\n");
-                res2.append("[C-").append(k).append("-").append(j).append("],").append(paginaMatC).append(",").append(offSet).append("\n");
-                numeroReferencias += 3;
-            }
-        }
-    }
-    res1 += "NR=" + numeroReferencias + "\n";
-    String respuesta = res1 + res2;
-    PrintWriter writer = new PrintWriter(new FileWriter("output.txt", true));
-    writer.println(respuesta);
-    writer.close();
-}
 
 public static void main(String[] args) throws IOException {
     ManejoMemoria mm = new ManejoMemoria();
